@@ -1,0 +1,24 @@
+{
+  "name": "codespace with docker",
+  // Install Docker (dind) inside the devcontainer
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest"
+    }
+  },
+
+  // (Optional but helpful) make sure the container has enough oomph
+  "hostRequirements": { "cpus": 4, "memory": "8gb" },
+
+  // Forward whatever ports your services expose (example: 3000 & 5432)
+  "forwardPorts": [3000, 5432],
+
+  // Runs once after the container is first created
+  "postCreateCommand": "docker version && docker compose version",
+
+  // Runs every time the Codespace starts — this is where we bring up your stack
+  "postStartCommand": "docker compose pull || true && docker compose up -d",
+
+  // Don’t override the container’s default CMD (needed for the feature to work smoothly)
+  "overrideCommand": false
+}
