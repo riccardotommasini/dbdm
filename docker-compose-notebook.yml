@@ -8,6 +8,14 @@ services:
         - 5432:5432
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
+  pgadmin:
+    container_name: pgadmin
+    image: elestio/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80" # type localhost:5050 to your browser to access the UI
   notebook:
     build: notebook/
     ports:
