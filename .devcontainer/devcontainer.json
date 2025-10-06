@@ -10,15 +10,13 @@
   // (Optional but helpful) make sure the container has enough oomph
   "hostRequirements": { "cpus": 4, "memory": "8gb" },
 
+  // Don't probe Docker here—daemon may not be ready yet.
+  "postCreateCommand": "echo 'Devcontainer created ✅'",
+
+  // Wait until dockerd is up, then compose up
+  "postStartCommand": "bash -lc 'until docker info >/dev/null 2>&1; do echo waiting for docker...; sleep 2; done; docker version; (docker compose version || docker-compose --version || true); docker compose pull || true; docker compose up -d'",
+
   // Forward whatever ports your services expose (example: 5432)
-  "forwardPorts": [8888, 5050, 5432],
-
-  // Runs once after the container is first created
-  "postCreateCommand": "docker version && docker compose version",
-
-  // Runs every time the Codespace starts — this is where we bring up your stack
-  "postStartCommand": "docker compose pull || true && docker compose up -d",
-
-  // Don’t override the container’s default CMD (needed for the feature to work smoothly)
-  "overrideCommand": false
+  "forwardPorts": [8888, 5050, 5432]
+  
 }
