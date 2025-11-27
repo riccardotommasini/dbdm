@@ -25,7 +25,8 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
   notebook:
-      image: tomma/dbdm-notebook
+      image: rictomm/notebook
+      # build: notebook/
       ports:
         - 8888:8888
       volumes:

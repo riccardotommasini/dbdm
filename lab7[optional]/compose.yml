@@ -1,6 +1,15 @@
-include:
-  - ../compose-notebook.yml 
 services:
+  notebook:
+      image: rictomm/notebook
+      # build: notebook/
+      ports:
+        - "8888:8888"
+      volumes:
+        - ./:/home/jovyan/work
+      environment:
+        - GRANT_SUDO=yes
+      networks:
+        - Practice
   neo:
     image: neo4j
     ports:
@@ -16,4 +25,4 @@ services:
 
 networks:
   Practice:
-    name: otlp_network
+    name: neo4j_network

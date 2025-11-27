@@ -1,6 +1,7 @@
 services:
   notebook:
-      build: notebook/
+      image: rictomm/notebook
+      # build: notebook/
       ports:
         - "8888:8888"
       volumes:
